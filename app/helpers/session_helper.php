@@ -1,9 +1,24 @@
 <?php
   session_start();
 
+  function isLoggedIn() {
+    return (isset($_SESSION['user_id'])) ? true : false;
+  }
+
+
+  function isAdmin() {
+    if(isset($_SESSION['user_is_admiin'])) {
+      return $_SESSION['user_is_admiin'];
+    } else {
+      return false;
+    }
+
+  }
+
+
   // Flash message helper
   // EXAMPLE - flash('register_success', 'You are now registered');
-  // DISPLAY IN VIEW - echo message('register_success');
+  // DISPLAY IN VIEW - message('register_success');
   function message($name = '', $message = '', $class = 'alert alert-success'){
     if(!empty($name)){
       if(!empty($message) && empty($_SESSION[$name])){

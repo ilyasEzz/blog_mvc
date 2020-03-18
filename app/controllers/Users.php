@@ -149,7 +149,7 @@ class Users extends Controller{
     $_SESSION['user_name'] = $user->name;
     $_SESSION['user_is_admin'] = $user->is_admin;
 
-    return redirect('pages/index');
+    return redirect('posts/index');
   }
 
 
@@ -161,10 +161,5 @@ class Users extends Controller{
     
     session_destroy();
     return redirect('users/login');
-  }
-
-
-  public function isLoggedIn() {
-    return (isset($_SESSION['user_id'])) ? true : false;
   }
 }
