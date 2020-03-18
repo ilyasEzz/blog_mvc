@@ -2,11 +2,15 @@
 
 class Posts extends Controller {
   public function __construct() {
-    $this->var = $var;
+    $this->postModel = $this->model('Post');
   }
 
   public function index() {
-    $data = [];
+    $posts = $this->postModel->getPosts();
+
+    $data = [
+      'posts' => $posts
+    ];
 
     return $this->view('posts/index', $data);
   }

@@ -2,7 +2,7 @@
 <?php require_once APP_ROOT . '/views/layout/header.php'; ?>
 
 <!-- Body  -->
-<div class="row">
+<div class="row mb-3">
   <div class="col-md-6">
     <h1>Post Index</h1>
   </div>
@@ -12,10 +12,20 @@
     </a>
   </div>
 </div>
-<?php if($_SESSION['user_is_admin']): ?>
-  <h2>Welcome Admin</h2>
-<?php else: ?>
-  <h2>You are not the admin go out!</h2>
-<? endif ?>
+
+<?php foreach($data['posts'] as $post) : ?>
+  <div class="card card-body mb-3">
+    <h4 class="card-title"><?= $post->title ?></h4>
+    <span class="bg-light p-2 mb-3">
+      Written by <?= $post->name ?> at <?= $post->postCreated ?>
+    </span>
+    <p class="card-text "><?= $post->body ?> </p>
+    <a href="?url=posts/show/<?= $post->postId ?>" class="btn btn-dark">
+      More
+    </a>
+  </div>
+<?php endforeach ?>
+
+
 <!-- Footer -->
 <?php require_once APP_ROOT . '/views/layout/footer.php'; ?>
