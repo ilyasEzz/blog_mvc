@@ -1,5 +1,7 @@
 <!-- Header -->
-<?php require_once APP_ROOT . '/views/layout/header.php'; ?>
+<?php 
+ require_once APP_ROOT . '/views/layout/header.php'; 
+ message('post_added') ?>
 
 <!-- Body  -->
 <div class="row mb-3">

@@ -40,4 +40,13 @@ class User {
       return false;
     }
   }
+
+
+  public function getUserById($id) {
+    $this->model->query('SELECT * FROM users WHERE id = :id ');
+    $this->model->bind(':id', $id);
+
+    $row = $this->model->get();
+    return $row;
+  }
 }
