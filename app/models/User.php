@@ -17,11 +17,27 @@ class User {
     return ($this->model->execute()) ? true : false; 
   }
 
+
   public function findUserByEmail($email) {
     $this->model->query('SELECT * FROM users WHERE email = :email');
     $this->model->bind(':email', $email);
 
     $row = $this->model->get();
     return ($this->model->rowCount() > 0) ? true : false; 
+  }
+
+
+  public function login($email, $password) {
+    $this->model->query('SELECT * FROM users WHERE email = :email');
+    $this->model->bind(':email', $email);
+
+    $row = $this->model->get();
+    $hashed_password = $row->password;
+
+    if(password_verify($password, $hashed_password)) {
+      return $row;
+    } else {
+      return false;
+    }
   }
 }

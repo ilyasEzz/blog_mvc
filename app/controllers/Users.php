@@ -60,13 +60,13 @@ class Users extends Controller{
         // Register User
         if($this->userModel->register($data)) {
           message('register_success', 'You are registered!');
-          redirect('users/login');
+          return redirect('users/login');
         } else {
-          die("Something went wrong");
+          return die("Something went wrong");
         }
         
       } else {
-        $this->view('users/register', $data);
+        return $this->view('users/register', $data);
       }
 
     } else {
@@ -81,7 +81,7 @@ class Users extends Controller{
         'confirm_password_err' => "", 
       ];
 
-      $this->view('users/register', $data);
+      return $this->view('users/register', $data);
     }
   }
 
@@ -97,18 +97,38 @@ class Users extends Controller{
         'password_err' => "", 
       ];
 
+      // Validate Email
       if(empty($data['email'])) {
         $data['email_err'] = "Please enter email";
       }
 
+      // Validate Password
       if(empty($data['password'])) {
         $data['password_err'] = "Please enter password";
       }
 
-      if(empty($data['email_err']) && empty($data['password_err'])) {
-        die("Success");
+      // Check if User Exists
+      if($this->userModel->findUserByEmail($data['email'])) {
+        
       } else {
-        $this->view('users/login', $data);
+        $data['email_err'] = "No User Found";
+      }
+
+      // If Validated
+      if(empty($data['email_err']) && empty($data['password_err'])) {
+        // Check and set logged In user
+        $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+
+        // Create Session
+        if($loggedInUser) {
+          return $this->createUserSession($loggedInUser);
+        } else {
+          $data['password_err'] = "Password Incorrect";
+          return $this->view('users/login', $data);
+        }
+      // if Not Validated
+      } else {
+        return $this->view('users/login', $data);
       }
 
     } else {
@@ -119,7 +139,32 @@ class Users extends Controller{
         'password_err' => "", 
       ];
 
-      $this->view('users/login', $data);
+      return $this->view('users/login', $data);
     }
+  }
+
+  public function createUserSession($user) {
+    $_SESSION['user_id'] = $user->id;
+    $_SESSION['user_email'] = $user->email;
+    $_SESSION['user_name'] = $user->name;
+    $_SESSION['user_is_admin'] = $user->is_admin;
+
+    return redirect('pages/index');
+  }
+
+
+  public function logout() {
+    unset($_SESSION['user_id']);
+    unset($_SESSION['user_name']);
+    unset($_SESSION['user_email']);
+    unset($_SESSION['user_is_admin']);
+    
+    session_destroy();
+    return redirect('users/login');
+  }
+
+
+  public function isLoggedIn() {
+    return (isset($_SESSION['user_id'])) ? true : false;
   }
 }
