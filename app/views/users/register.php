@@ -6,7 +6,7 @@
   <div class="col-md-6 mx-auto">
     <div class="card card-body bg-light mt-5">
       <h2>Create an Account</h2>
-      <form action="?url=/users/register" method="post">
+      <form action="?url=users/register/" method="post">
         <!-- Name  -->
         <div class="form-group">
           <label for="name">Name: <sup>*</sup></label>
@@ -15,7 +15,7 @@
             name="name" 
             value="<?= $data['name'] ?>"
             class="form-control form-control-lg
-            <?php echo(!empty($data['name_err'])) ? 'is_valid' : ''; ?>"
+            <?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>"
           >
           <span class="invalid-feedback"><?= $data['name_err'] ?></span>
         </div>
@@ -27,7 +27,7 @@
             name="email" 
             value="<?= $data['email'] ?>"
             class="form-control form-control-lg
-            <?php echo(!empty($data['email_err'])) ? 'is_valid' : ''; ?>"
+            <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>"
           >
           <span class="invalid-feedback"><?= $data['email_err'] ?></span>
         </div>
@@ -39,7 +39,7 @@
             name="password" 
             value="<?= $data['password'] ?>"
             class="form-control form-control-lg
-            <?php echo(!empty($data['password_err'])) ? 'is_valid' : ''; ?>"
+            <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>"
           >
           <span class="invalid-feedback"><?= $data['password_err'] ?></span>
         </div>
@@ -51,9 +51,9 @@
             name="confirm_password" 
             value="<?= $data['confirm_password'] ?>"
             class="form-control form-control-lg
-            <?php echo(!empty($data['confirm_password_err'])) ? 'is_valid' : ''; ?>"
+            <?php echo (!empty($data['confirm_password_err'])) ? 'is-invalid' : ''; ?>"
           >
-          <span class="invalid-feedback"><?= $data['confirm_password_err'] ?></span>
+          <span class="invalid-feedback"><?= $data['confirm_password_err'] ?> </span>
         </div>
 
         <div class="row">

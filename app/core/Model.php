@@ -63,7 +63,7 @@ class Model {
       }
     }
 
-    $this->stmt->bindValues($params, $value, $type);
+    $this->stmt->bindValue($params, $value, $type);
   }
 
   // Execute the prepared statement
