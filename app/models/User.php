@@ -49,4 +49,10 @@ class User {
     $row = $this->model->get();
     return $row;
   }
+
+  public function getAll() {
+      $this->model->query('SELECT * FROM users');
+      $results = $this->model->getAll();
+      return $results;
+  }
 }

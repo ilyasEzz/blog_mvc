@@ -108,10 +108,8 @@ class Users extends Controller{
       }
 
       // Check if User Exists
-      if($this->userModel->findUserByEmail($data['email'])) {
-        
-      } else {
-        $data['email_err'] = "No User Found";
+      if(!$this->userModel->findUserByEmail($data['email'])) {
+          $data['email_err'] = "No User Found";
       }
 
       // If Validated
@@ -162,4 +160,78 @@ class Users extends Controller{
     session_destroy();
     return redirect('users/login');
   }
+
+
+  public function  dashboard() {
+      if(!isAdmin()) return redirect("pages/index");
+
+      $users =$this->userModel->getAll();
+
+      $data = [
+          'users' => $users
+      ];
+
+      return $this->view('users/dashboard', $data);
+  }
+
+    public function edit($id) {
+      if(!isAdmin()) return redirect('pages/index');
+
+      // POST REQUEST
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'id' => $id,
+                'title' => trim($_POST['title']),
+                'body' => trim($_POST['body']),
+                'user_id' => trim($_SESSION['user_id']),
+                'title_err' => '',
+                'body_err' => ''
+            ];
+
+            // Validate data
+            if(empty($data['title'])) {
+                $data['title_err'] = "Please enter title";
+            }
+
+            if(empty($data['body'])) {
+                $data['body_err'] = "Please enter body text";
+            }
+
+            // Validated Data
+            if(empty($data['title_err']) && empty($data['title_err'])) {
+
+                if($this->postModel->updatePost($data)) {
+                    message('post_message', "Post Updated!");
+                    return redirect('posts/index');
+                } else {
+                    die("Something went wrong");
+                }
+
+            } else {
+                return $this->view('posts/edit', $data);
+            }
+
+        } else {
+            // No POST REQUEST
+            $user = $this->userModel->getUserById($id);
+
+
+            $data = [
+                'id' => $id,
+                'name' => $user->name,
+                'email' => $user->email
+
+
+            ];
+
+            return $this->view('users/edit', $data);
+        }
+
+
+    }
+
 }
+
+

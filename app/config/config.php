@@ -8,6 +8,6 @@ define('DB_NAME', 'mvc_portfolio');
 
 define('APP_ROOT', dirname(dirname(__FILE__)));
 
-define('URL_ROOT', "portfolio/");
+define('URL_ROOT', "blog_mvc/");
 
 define('TITLE', "MVC Portfolio");

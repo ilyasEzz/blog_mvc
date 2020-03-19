@@ -8,27 +8,32 @@
   <!-- Right -->
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
-        <a class="nav-link" href="/?url=pages/index/">Home  </a>
+        <a class="nav-link" href="?url=pages/index/">Home  </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/?url=pages/about/">About</a>
+        <a class="nav-link" href="?url=pages/about/">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/?url=posts/index/">Posts</a>
+        <a class="nav-link" href="?url=posts/index/">Posts</a>
       </li>
     </ul>
   <!-- Left -->
     <ul class="navbar-nav ml-auto">
     <?php if(isset($_SESSION['user_id'])) : ?>
+      <?php if(isAdmin()) : ?>
+        <li class="nav-item">
+            <a class="nav-link" href="?url=users/dashboard/">Dashboard</a>
+        </li>
+      <?php endif ?>
       <li class="nav-item">
-        <a class="btn btn-success" href="/?url=users/logout/">Logout</a>
+        <a class="btn btn-success" href="?url=users/logout/">Logout</a>
       </li>
     <?php else : ?>
       <li class="nav-item ">
-        <a class="nav-link" href="/?url=users/login/">Login  </a>
+        <a class="nav-link" href="?url=users/login/">Login  </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/?url=users/register/">Register</a>
+        <a class="nav-link" href="?url=users/register/">Register</a>
       </li>
     <?php endif ?>
 
