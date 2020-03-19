@@ -13,6 +13,9 @@
       <li class="nav-item">
         <a class="nav-link" href="/?url=pages/about/">About</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/?url=posts/index/">Posts</a>
+      </li>
     </ul>
   <!-- Left -->
     <ul class="navbar-nav ml-auto">

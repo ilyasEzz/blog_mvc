@@ -34,11 +34,29 @@ class Post {
   }
   
 
+  public function updatePost($data)  {
+    $this->model->query('UPDATE posts SET title = :title, body = :body WHERE id = :id');
+
+    $this->model->bind(':id', $data['id']);
+    $this->model->bind(':title', $data['title']);
+    $this->model->bind(':body', $data['body']);
+
+    return ($this->model->execute()) ? true : false; 
+  }
+  
+
   public function getPostById($id) {
     $this->model->query('SELECT * FROM posts WHERE id = :id ');
     $this->model->bind(':id', $id);
 
     $row = $this->model->get();
     return $row;
+  }
+
+  public function deletePost($id) {
+    $this->model->query('DELETE FROM posts WHERE id = :id');
+    $this->model->bind(':id', $id);
+
+    return ($this->model->execute()) ? true : false; 
   }
 }

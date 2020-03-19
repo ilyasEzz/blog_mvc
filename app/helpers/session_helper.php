@@ -7,12 +7,7 @@
 
 
   function isAdmin() {
-    if(isset($_SESSION['user_is_admiin'])) {
-      return $_SESSION['user_is_admiin'];
-    } else {
-      return false;
-    }
-
+    return $_SESSION['user_is_admin'] ?? false;
   }
 
 

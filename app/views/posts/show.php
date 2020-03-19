@@ -15,7 +15,7 @@
       class=" btn btn-primary"> Edit
     </a>
   
-    <form class="col offset-md-10" action="?url=posts/edit/<?= $data['post']->id ?>" method="post">
+    <form class="col offset-md-10" action="?url=posts/delete/<?= $data['post']->id ?>" method="post">
       <input type="submit" value="Delete" class="btn btn-danger">
     </form>
   </div> 

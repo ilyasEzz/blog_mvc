@@ -1,18 +1,20 @@
 <!-- Header -->
 <?php 
  require_once APP_ROOT . '/views/layout/header.php'; 
- message('post_added') ?>
+ message('post_message') ?>
 
 <!-- Body  -->
 <div class="row mb-3">
   <div class="col-md-6">
     <h1>Post Index</h1>
   </div>
-  <div class="col-md-6 d-flex justify-content-end align-items-md-center">
-    <a href="?url=posts/add/" class=" btn btn-primary">
-       Add Post
-    </a>
+  <?php if(isAdmin()) : ?>
+    <div class="col-md-6 d-flex justify-content-end align-items-md-center">
+      <a href="?url=posts/add/" class=" btn btn-primary">
+        Add Post
+      </a>
   </div>
+  <?php endif ?>
 </div>
 
 <?php foreach($data['posts'] as $post) : ?>
