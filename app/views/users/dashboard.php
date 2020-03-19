@@ -1,5 +1,7 @@
 <?php
-require_once APP_ROOT . '/views/layout/header.php'; ?>
+  require_once APP_ROOT . '/views/layout/header.php'; 
+  message('user_message');
+?>
 
 <h1>Welcome <?= $_SESSION['user_name'] ?></h1>
 
@@ -11,6 +13,7 @@ require_once APP_ROOT . '/views/layout/header.php'; ?>
         <th scope="col">email</th>
         <th scope="col">created at</th>
         <th scope="col">is admin</th>
+        <th scope="col"></th>
         <th scope="col"></th>
 
     </tr>
@@ -24,6 +27,11 @@ require_once APP_ROOT . '/views/layout/header.php'; ?>
         <td><?= $user->created_at ?></td>
         <td><?php echo ($user->is_admin) ? "Yes" : "No"; ?></td>
         <td><a href="?url=users/edit/<?= $user->id ?>" class="btn btn-success">Edit</a></td>
+        <td>
+            <form  action="?url=users/delete/<?= $user->id ?>" method="post">
+                <input type="submit" value="Delete" class="btn btn-danger">
+            </form>
+        </td>
     </tr>
     <?php endforeach; ?>
     </tbody>

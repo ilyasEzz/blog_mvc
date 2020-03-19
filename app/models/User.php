@@ -65,4 +65,12 @@ class User {
 
     return ($this->model->execute()) ? true : false; 
   }
+
+
+  public function deleteUser($id) {
+    $this->model->query('DELETE FROM users WHERE id = :id');
+    $this->model->bind(':id', $id);
+
+    return ($this->model->execute()) ? true : false; 
+  }
 }
