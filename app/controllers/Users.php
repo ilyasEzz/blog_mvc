@@ -174,43 +174,53 @@ class Users extends Controller{
       return $this->view('users/dashboard', $data);
   }
 
-    public function edit($id) {
-      if(!isAdmin()) return redirect('pages/index');
+  public function edit($id) {
+    if(!isAdmin()) return redirect('pages/index');
 
-      // POST REQUEST
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-            $data = [
-                'id' => $id,
-                'title' => trim($_POST['title']),
-                'body' => trim($_POST['body']),
-                'user_id' => trim($_SESSION['user_id']),
-                'title_err' => '',
-                'body_err' => ''
-            ];
+    // POST REQUEST
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      
+        $data = [
+          'id' => $id,
+          'name' => trim($_POST['name']),
+          'email' => trim($_POST['email']),
+          'password' => trim($_POST['password']),
+          'email_err' => '',
+          'name_err' => '',
+          'password_err' => '',
+        ];
 
             // Validate data
-            if(empty($data['title'])) {
-                $data['title_err'] = "Please enter title";
+            if(empty($data['name'])) {
+              $data['name_err'] = "Please enter name";
             }
 
-            if(empty($data['body'])) {
-                $data['body_err'] = "Please enter body text";
+            if(empty($data['email'])) {
+              $data['email_err'] = "Please enter email";
             }
 
+            if(empty($data['password'])) {
+              $data['password_err'] = "Please enter password";
+            }
+
+       
             // Validated Data
-            if(empty($data['title_err']) && empty($data['title_err'])) {
+            if(empty($data['name_err']) && empty($data['email_err']) 
+                && empty($data['password_err'])  ) {
 
-                if($this->postModel->updatePost($data)) {
-                    message('post_message', "Post Updated!");
-                    return redirect('posts/index');
-                } else {
-                    die("Something went wrong");
-                }
+              $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+              if($this->userModel->updateUser($data)) {
+                message('user_message', "User Updated!");
+                return redirect('user/dashboard');
+              } else {
+                die("Something went wrong");
+              }
 
             } else {
-                return $this->view('posts/edit', $data);
+                die(var_dump($data));
+                return $this->view('users/edit', $data);
             }
 
         } else {
@@ -219,19 +229,16 @@ class Users extends Controller{
 
 
             $data = [
-                'id' => $id,
-                'name' => $user->name,
-                'email' => $user->email
-
-
+              'id' => $id,
+              'name' => $user->name,
+              'email' => $user->email,
+              'password' => $user->password,
+              'is_admin' => $user->is_admin
             ];
 
             return $this->view('users/edit', $data);
         }
-
-
     }
-
 }
 
 

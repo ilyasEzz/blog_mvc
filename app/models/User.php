@@ -34,11 +34,8 @@ class User {
     $row = $this->model->get();
     $hashed_password = $row->password;
 
-    if(password_verify($password, $hashed_password)) {
-      return $row;
-    } else {
-      return false;
-    }
+    return (password_verify($password, $hashed_password))  
+    ? $row : false;
   }
 
 
@@ -54,5 +51,18 @@ class User {
       $this->model->query('SELECT * FROM users');
       $results = $this->model->getAll();
       return $results;
+  }
+
+
+  public function updateUser($data)  {
+    $this->model->query('UPDATE users SET name = :name, email = :email, 
+                        password = :password WHERE id = :id');
+
+    $this->model->bind(':id', $data['id']);
+    $this->model->bind(':name', $data['name']);
+    $this->model->bind(':email', $data['email']);
+    $this->model->bind(':password', $data['password']);
+
+    return ($this->model->execute()) ? true : false; 
   }
 }
