@@ -124,15 +124,32 @@ class Posts extends Controller {
 
   
   public function show($id)  {
+
     $post = $this->postModel->getPostById($id);
     $user = $this->userModel->getUserById($post->user_id);
     $comments = $this->commentModel->getCommentsByPost($post->id);
-    
+
+    // POST Comment
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && isLoggedIn()) {
+      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      $text = trim($_POST['comment']);
+
+      $comment = [
+        'post_id' => $id,
+        'author' => $_SESSION['user_name'],
+        'text' => $text
+      ];
+
+      $this->commentModel->addComment($comment);
+    }
+
     $data = [ 
       'post' => $post,
       'user' => $user,
       'comments' => $comments
     ];
+
     return $this->view('posts/show', $data);
   }
 

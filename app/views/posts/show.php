@@ -23,8 +23,18 @@
     </form>
   </div> 
 <?php endif ?>
+<hr>
+<!-- Write Comment -->
+<div class="card card-body bg-light">
+  <form action="?url=post/show/<?= $data['post']->id ?>" method="post">
+      <label for="text">Comment : </label>
+      <textarea class="form-control" name="comment"  cols="20" rows="5"></textarea>
+    <input type="submit" value="submit" class="btn btn-success mt-3">
+  </form>
+</div>
+        
 
-<!-- Comments -->
+<!-- Show Comments -->
 <?php foreach($data['comments'] as $comment) : ?>
   <hr>
   <div class="card card-white post">
@@ -42,7 +52,8 @@
     </div>
   </div>
 <?php endforeach ?>
-        
+
+
 <!-- Footer -->
 <?php require_once APP_ROOT . '/views/layout/footer.php'; ?>
 
