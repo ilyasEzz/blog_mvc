@@ -1,20 +1,21 @@
 <?php
 
 class Posts extends Controller {
+
   public function __construct() {
     $this->postModel = $this->model('Post');
     $this->userModel = $this->model('User');
+    $this->commentModel = $this->model('Comment');
   }
 
   public function index() {
     $posts = $this->postModel->getPosts();
-
     $data = [
       'posts' => $posts
     ];
-
     return $this->view('posts/index', $data);
   }
+
 
   public function add() {
     // Not Admin
@@ -119,20 +120,19 @@ class Posts extends Controller {
   
       return $this->view('posts/edit', $data);
     }
-
-    
   }
 
   
   public function show($id)  {
     $post = $this->postModel->getPostById($id);
     $user = $this->userModel->getUserById($post->user_id);
+    $comments = $this->commentModel->getCommentsByPost($post->id);
     
     $data = [ 
       'post' => $post,
-      'user' => $user
+      'user' => $user,
+      'comments' => $comments
     ];
-
     return $this->view('posts/show', $data);
   }
 

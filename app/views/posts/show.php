@@ -22,28 +22,27 @@
       <input type="submit" value="Delete" class="btn btn-danger">
     </form>
   </div> 
-  
 <?php endif ?>
-<hr>
+
 <!-- Comments -->
-<div class="card card-white post">
-  <div class="post-heading">
-    <div class="float-left image">
-      <img src="public/assets/img/user_img.jpg" class="img-circle avatar" alt=profile image">
-    </div>
-    <div class="float-left meta">
-      <div class="title h5">
-        <strong> Ryan Haywood</strong> made a post.
+<?php foreach($data['comments'] as $comment) : ?>
+  <hr>
+  <div class="card card-white post">
+    <div class="post-heading">
+      <div class="float-left image">
+        <img src="public/assets/img/user_img.jpg" class="img-circle avatar" alt="profile image">
       </div>
-      <h6 class="text-muted time">1 minute ago</h6>
+      <div class="float-left meta">
+        <strong class="title h5"> <?= $comment->author ?></strong> 
+        <h6 class="text-muted time"><?= $comment->created_at ?></h6>
+      </div>
+    </div> 
+    <div class="post-description"> 
+      <p><?= $comment->text ?></p>
     </div>
-  </div> 
-  <div class="post-description"> 
-    <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap cssjs framework. Codes for developers and web designers</p>
   </div>
-</div>
+<?php endforeach ?>
         
-
-
+<!-- Footer -->
 <?php require_once APP_ROOT . '/views/layout/footer.php'; ?>
 
