@@ -142,6 +142,7 @@ class Posts extends Controller {
       ];
 
       $this->commentModel->addComment($comment);
+      return redirect('posts/show/' . $id);
     }
 
     $data = [ 

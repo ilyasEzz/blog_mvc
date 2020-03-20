@@ -1,17 +1,17 @@
 <!-- Header -->
-<?php require_once APP_ROOT . '/views/layout/header.php'; ?>
+<?php
+  require_once APP_ROOT . '/views/layout/header.php'; 
+  message('comment_message')  
+?>
+
 
 <!-- Post Info -->
-<h1><?= $data['post']->title ?></h1>
-
 <div class="bg-secondary text-white p-2 mb-3">
   Written by <strong><?= $data['user']->name ?></strong> on  <?= $data['post']->created_at ?>
 </div>
-<p class="lead"><?= $data['post'] ->body ?></p>
 
 <!-- Edit / Delete -->
 <?php if($data['post']->user_id  == $_SESSION['user_id']) : ?>
-  <hr>
   <div class="row">
     <a href="?url=posts/edit/<?= $data['post']->id ?>"
       style="flex-basis: 0;"
@@ -22,11 +22,17 @@
       <input type="submit" value="Delete" class="btn btn-danger">
     </form>
   </div> 
+  <hr>
 <?php endif ?>
+
+<h1><?= $data['post']->title ?></h1>
+
+<p class="lead"><?= $data['post'] ->body ?></p>
+
 <hr>
 <!-- Write Comment -->
 <div class="card card-body bg-light">
-  <form action="?url=post/show/<?= $data['post']->id ?>" method="post">
+  <form action="?url=posts/show/<?= $data['post']->id ?>" method="post">
       <label for="text">Comment : </label>
       <textarea class="form-control" name="comment"  cols="20" rows="5"></textarea>
     <input type="submit" value="submit" class="btn btn-success mt-3">
@@ -46,6 +52,9 @@
         <strong class="title h5"> <?= $comment->author ?></strong> 
         <h6 class="text-muted time"><?= $comment->created_at ?></h6>
       </div>
+      <form class="col offset-md-10" action="?url=comments/delete/<?= $comment->id ?>" method="post">
+        <input type="submit" value="Delete" class="btn btn-danger">
+      </form>
     </div> 
     <div class="post-description"> 
       <p><?= $comment->text ?></p>
