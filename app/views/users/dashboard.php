@@ -3,7 +3,7 @@
   message('user_message');
 ?>
 
-<h1>Welcome <?= $_SESSION['user_name'] ?></h1>
+<h1 class="display-3 my-4">Welcome <?= $_SESSION['user_name'] ?></h1>
 
 <table class="table table-striped  table-dark">
     <thead>
@@ -28,9 +28,11 @@
         <td><?php echo ($user->is_admin) ? "Yes" : "No"; ?></td>
         <td><a href="?url=users/edit/<?= $user->id ?>" class="btn btn-success">Edit</a></td>
         <td>
+        <?php if($_SESSION['user_id'] != $user->id) : ?>
             <form  action="?url=users/delete/<?= $user->id ?>" method="post">
                 <input type="submit" value="Delete" class="btn btn-danger">
             </form>
+        <?php endif ?>
         </td>
     </tr>
     <?php endforeach; ?>

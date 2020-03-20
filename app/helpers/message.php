@@ -1,15 +1,4 @@
 <?php
-  session_start();
-
-  function isLoggedIn() {
-    return (isset($_SESSION['user_id'])) ? true : false;
-  }
-
-
-  function isAdmin() {
-    return $_SESSION['user_is_admin'] ?? false;
-  }
-
 
   // Flash message helper
   // EXAMPLE - flash('register_success', 'You are now registered');
@@ -35,3 +24,4 @@
       }
     }
   }
+
