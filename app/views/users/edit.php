@@ -33,7 +33,5 @@
     </form>
 </div>
 
-<?php print_r($data) ?>
-
 <!-- Footer -->
 <?php require_once APP_ROOT . '/views/layout/footer.php'; ?>

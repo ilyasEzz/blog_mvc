@@ -162,18 +162,6 @@ class Users extends Controller{
   }
 
 
-  public function  dashboard() {
-      if(!isAdmin()) return redirect("pages/index");
-
-      $users =$this->userModel->getAll();
-
-      $data = [
-          'users' => $users
-      ];
-
-      return $this->view('users/dashboard', $data);
-  }
-
   public function edit($id) {
     if(!isAdmin()) return redirect('pages/index');
 

@@ -22,7 +22,7 @@
     <?php if(isset($_SESSION['user_id'])) : ?>
       <?php if(isAdmin()) : ?>
         <li class="nav-item">
-            <a class="nav-link" href="?url=users/dashboard/">Dashboard</a>
+            <a class="nav-link" href="?url=pages/dashboard/">Dashboard</a>
         </li>
       <?php endif ?>
       <li class="nav-item">

@@ -7,6 +7,23 @@ class Comment {
     $this->model = new Model(); 
   }
 
+  public function getAll() {
+
+    $this->model->query('SELECT *,
+    comments.id as commentId, posts.id as postId,
+    comments.created_at as commentCreated,
+    posts.created_at as postCreated,
+    posts.title as postTitle
+    FROM comments
+    INNER JOIN posts ON comments.post_id = posts.id
+    ORDER BY comments.created_at DESC
+    ');
+
+    $results = $this->model->getAll();
+    return $results;
+  }
+
+
   public function getCommentsByPost($id) {
     $this->model->query('SELECT * FROM comments WHERE post_id = :id');
     $this->model->bind(':id', $id);
