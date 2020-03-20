@@ -21,7 +21,7 @@
   <div class="card card-body mb-3">
     <h4 class="card-title"><?= $post->title ?></h4>
     <span class="bg-light p-2 mb-3">
-      Written by <?= $post->name ?> at <?= $post->postCreated ?>
+      Written by <strong><?= $post->name ?></strong> at <?= $post->postCreated ?>
     </span>
     <p class="card-text "><?= $post->body ?> </p>
     <a href="?url=posts/show/<?= $post->postId ?>" class="btn btn-dark">
